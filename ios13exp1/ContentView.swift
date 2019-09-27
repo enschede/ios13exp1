@@ -8,14 +8,23 @@
 
 import SwiftUI
 
+class Person: ObservableObject {
+    @Published var firstname: String = ""
+    @Published var lastname: String = ""
+}
+
 struct ContentView: View {
     
-    @State private var name: String = ""
+    @ObservedObject private var person = Person()
     
     var body: some View {
         Form {
-            TextField("Name:", text: $name)
-            Text("Hello \(name)")
+            TextField("Firstname", text: $person.firstname)
+            TextField("Lastname", text: $person.lastname)
+            
+//            Spacer()
+            
+            Text("Hello \(person.firstname) \(person.lastname)")
         }
     }
 }
