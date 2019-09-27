@@ -48,9 +48,10 @@ struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        VStack {
-            Text("Hello \(firstname) \(lastname)")
-            Divider()
+        Form {
+            TextField("Firstname", text: $firstname)
+            TextField("Lastname", text: $lastname)
+
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }) {
