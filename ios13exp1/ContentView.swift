@@ -22,9 +22,14 @@ struct ContentView: View {
             TextField("Firstname", text: $person.firstname)
             TextField("Lastname", text: $person.lastname)
             
-//            Spacer()
-            
             Text("Hello \(person.firstname) \(person.lastname)")
+
+            Button(action: {
+                self.person.firstname = ""
+                self.person.lastname = ""
+            }) {
+                Text("Reset names")
+            }
         }
     }
 }
