@@ -30,12 +30,31 @@ struct ContentView: View {
             Text("Hello \(person.firstname) \(person.lastname)")
             
             Button(action: {
-                self.showingSheet = true
+                self.showingSheet.toggle()
             }) {
                 Text("Show actionsheet")
             }
-            .actionSheet(isPresented: $showingSheet) {
-                ActionSheet(title: Text("What do you want to do?"), message: Text("There's only one choice..."), buttons: [.default(Text("Dismiss Action Sheet"))])
+            .sheet(isPresented: $showingSheet) {
+                DetailView(firstname: self.$person.firstname, lastname: self.$person.lastname)
+            }
+        }
+    }
+}
+
+struct DetailView: View {
+    @Binding var firstname: String
+    @Binding var lastname: String
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    var body: some View {
+        VStack {
+            Text("Hello \(firstname) \(lastname)")
+            Divider()
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Dismiss")
             }
         }
     }
