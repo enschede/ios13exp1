@@ -16,6 +16,11 @@ class Person: ObservableObject {
 struct ContentView: View {
     
     @ObservedObject private var person = Person()
+    @State private var showingSheet = false {
+        didSet {
+            print("showingsheet = \(showingSheet)")
+        }
+    }
     
     var body: some View {
         Form {
@@ -23,12 +28,14 @@ struct ContentView: View {
             TextField("Lastname", text: $person.lastname)
             
             Text("Hello \(person.firstname) \(person.lastname)")
-
+            
             Button(action: {
-                self.person.firstname = ""
-                self.person.lastname = ""
+                self.showingSheet = true
             }) {
-                Text("Reset names")
+                Text("Show actionsheet")
+            }
+            .actionSheet(isPresented: $showingSheet) {
+                ActionSheet(title: Text("What do you want to do?"), message: Text("There's only one choice..."), buttons: [.default(Text("Dismiss Action Sheet"))])
             }
         }
     }
