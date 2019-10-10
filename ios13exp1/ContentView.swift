@@ -29,9 +29,6 @@ class Person: ObservableObject {
     init() {
       fullnameComposeRule
         .receive(on: RunLoop.main)
-        .map { fn in
-          fn
-        }
         .assign(to: \.fullname, on: self)
         .store(in: &cancellableSet)
     }
